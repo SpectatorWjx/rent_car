@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.dao.CarMapper">
+  <resultMap id="BaseResultMap" type="com.wang.entity.Car">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="car_name" jdbcType="VARCHAR" property="carName" />
+    <result column="car_type" jdbcType="VARCHAR" property="carType" />
+    <result column="car_image" jdbcType="VARCHAR" property="carImage" />
+    <result column="car_seat" jdbcType="VARCHAR" property="carSeat" />
+    <result column="car_rentprice" jdbcType="DECIMAL" property="carRentprice" />
+    <result column="car_deposit" jdbcType="DECIMAL" property="carDeposit" />
+    <result column="rent_discount" jdbcType="INTEGER" property="rentDiscount" />
+    <result column="rent_degree" jdbcType="INTEGER" property="rentDegree" />
+    <result column="car_price" jdbcType="DECIMAL" property="carPrice" />
+    <result column="car_description" jdbcType="VARCHAR" property="carDescription" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, car_name, car_type, car_image, car_seat, car_rentprice, car_deposit, rent_discount, 
+    rent_degree, car_price, car_description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from car
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wang.entity.Car">
+    insert into car (id, car_name, car_type, 
+      car_image, car_seat, car_rentprice, 
+      car_deposit, rent_discount, rent_degree, 
+      car_price, car_description, create_time)
+    values (#{id,jdbcType=INTEGER}, #{carName,jdbcType=VARCHAR}, #{carType,jdbcType=VARCHAR}, 
+      #{carImage,jdbcType=VARCHAR}, #{carSeat,jdbcType=VARCHAR}, #{carRentprice,jdbcType=DECIMAL}, 
+      #{carDeposit,jdbcType=DECIMAL}, #{rentDiscount,jdbcType=INTEGER}, #{rentDegree,jdbcType=INTEGER}, 
+      #{carPrice,jdbcType=DECIMAL}, #{carDescription,jdbcType=VARCHAR}, now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.wang.entity.Car">
+    insert into car
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="carName != null">
+        car_name,
+      </if>
+      <if test="carType != null">
+        car_type,
+      </if>
+      <if test="carImage != null">
+        car_image,
+      </if>
+      <if test="carSeat != null">
+        car_seat,
+      </if>
+      <if test="carRentprice != null">
+        car_rentprice,
+      </if>
+      <if test="carDeposit != null">
+        car_deposit,
+      </if>
+      <if test="rentDiscount != null">
+        rent_discount,
+      </if>
+      <if test="rentDegree != null">
+        rent_degree,
+      </if>
+      <if test="carPrice != null">
+        car_price,
+      </if>
+      <if test="carDescription != null">
+        car_description,
+      </if>
+        create_time
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="carName != null">
+        #{carName,jdbcType=VARCHAR},
+      </if>
+      <if test="carType != null">
+        #{carType,jdbcType=VARCHAR},
+      </if>
+      <if test="carImage != null">
+        #{carImage,jdbcType=VARCHAR},
+      </if>
+      <if test="carSeat != null">
+        #{carSeat,jdbcType=VARCHAR},
+      </if>
+      <if test="carRentprice != null">
+        #{carRentprice,jdbcType=DECIMAL},
+      </if>
+      <if test="carDeposit != null">
+        #{carDeposit,jdbcType=DECIMAL},
+      </if>
+      <if test="rentDiscount != null">
+        #{rentDiscount,jdbcType=INTEGER},
+      </if>
+      <if test="rentDegree != null">
+        #{rentDegree,jdbcType=INTEGER},
+      </if>
+      <if test="carPrice != null">
+        #{carPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="carDescription != null">
+        #{carDescription,jdbcType=VARCHAR},
+      </if>
+      now()
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wang.entity.Car">
+    update car
+    <set>
+      <if test="carName != null">
+        car_name = #{carName,jdbcType=VARCHAR},
+      </if>
+      <if test="carType != null">
+        car_type = #{carType,jdbcType=VARCHAR},
+      </if>
+      <if test="carImage != null">
+        car_image = #{carImage,jdbcType=VARCHAR},
+      </if>
+      <if test="carSeat != null">
+        car_seat = #{carSeat,jdbcType=VARCHAR},
+      </if>
+      <if test="carRentprice != null">
+        car_rentprice = #{carRentprice,jdbcType=DECIMAL},
+      </if>
+      <if test="carDeposit != null">
+        car_deposit = #{carDeposit,jdbcType=DECIMAL},
+      </if>
+      <if test="rentDiscount != null">
+        rent_discount = #{rentDiscount,jdbcType=INTEGER},
+      </if>
+      <if test="rentDegree != null">
+        rent_degree = #{rentDegree,jdbcType=INTEGER},
+      </if>
+      <if test="carPrice != null">
+        car_price = #{carPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="carDescription != null">
+        car_description = #{carDescription,jdbcType=VARCHAR},
+      </if>
+        update_time = now()
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wang.entity.Car">
+    update car
+    set car_name = #{carName,jdbcType=VARCHAR},
+      car_type = #{carType,jdbcType=VARCHAR},
+      car_image = #{carImage,jdbcType=VARCHAR},
+      car_seat = #{carSeat,jdbcType=VARCHAR},
+      car_rentprice = #{carRentprice,jdbcType=DECIMAL},
+      car_deposit = #{carDeposit,jdbcType=DECIMAL},
+      rent_discount = #{rentDiscount,jdbcType=INTEGER},
+      rent_degree = #{rentDegree,jdbcType=INTEGER},
+      car_price = #{carPrice,jdbcType=DECIMAL},
+      car_description = #{carDescription,jdbcType=VARCHAR},
+      update_time = now()
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByName" parameterType="string" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from car
+    where car_name = #{name,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAllCar"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from car
+  </select>
+</mapper>

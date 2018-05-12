@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.dao.UserAttacheMentMapper">
+  <resultMap id="BaseResultMap" type="com.wang.entity.UserAttacheMent">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="identity" jdbcType="VARCHAR" property="identity" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="head_image" jdbcType="VARCHAR" property="headImage" />
+    <result column="driverlicense_type" jdbcType="VARCHAR" property="driverlicenseType" />
+    <result column="driverlicense_number" jdbcType="VARCHAR" property="driverlicenseNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, identity, sex, address, head_image, driverlicense_type, driverlicense_number
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_attachement
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_attachement
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wang.entity.UserAttacheMent">
+    insert into user_attachement (id, user_id, identity, 
+      sex, address, head_image, 
+      driverlicense_type, driverlicense_number, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{identity,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{headImage,jdbcType=VARCHAR}, 
+      #{driverlicenseType,jdbcType=VARCHAR}, #{driverlicenseNumber,jdbcType=VARCHAR}, 
+      now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.wang.entity.UserAttacheMent">
+    insert into user_attachement
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="identity != null">
+        identity,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="headImage != null">
+        head_image,
+      </if>
+      <if test="driverlicenseType != null">
+        driverlicense_type,
+      </if>
+      <if test="driverlicenseNumber != null">
+        driverlicense_number,
+      </if>
+        create_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="identity != null">
+        #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="headImage != null">
+        #{headImage,jdbcType=VARCHAR},
+      </if>
+      <if test="driverlicenseType != null">
+        #{driverlicenseType,jdbcType=VARCHAR},
+      </if>
+      <if test="driverlicenseNumber != null">
+        #{driverlicenseNumber,jdbcType=VARCHAR},
+      </if>
+      now()
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wang.entity.UserAttacheMent">
+    update user_attachement
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="identity != null">
+        identity = #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="headImage != null">
+        head_image = #{headImage,jdbcType=VARCHAR},
+      </if>
+      <if test="driverlicenseType != null">
+        driverlicense_type = #{driverlicenseType,jdbcType=VARCHAR},
+      </if>
+      <if test="driverlicenseNumber != null">
+        driverlicense_number = #{driverlicenseNumber,jdbcType=VARCHAR},
+      </if>
+
+        update_time = now()
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wang.entity.UserAttacheMent">
+    update user_attachement
+    set user_id = #{userId,jdbcType=INTEGER},
+      identity = #{identity,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      head_image = #{headImage,jdbcType=VARCHAR},
+      driverlicense_type = #{driverlicenseType,jdbcType=VARCHAR},
+      driverlicense_number = #{driverlicenseNumber,jdbcType=VARCHAR},
+      update_time = now()
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

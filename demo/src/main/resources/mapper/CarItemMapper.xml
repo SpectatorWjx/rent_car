@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.dao.CarItemMapper">
+  <resultMap id="BaseResultMap" type="com.wang.entity.CarItem">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="car_id" jdbcType="INTEGER" property="carId" />
+    <result column="car_number" jdbcType="VARCHAR" property="carNumber" />
+    <result column="car_state" jdbcType="VARCHAR" property="carState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, car_id, car_number, car_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_item
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from car_item
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wang.entity.CarItem">
+    insert into car_item (id, car_id, car_number, 
+      car_state, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{carId,jdbcType=INTEGER}, #{carNumber,jdbcType=VARCHAR}, 
+      #{carState,jdbcType=VARCHAR},now()
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wang.entity.CarItem">
+    insert into car_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="carId != null">
+        car_id,
+      </if>
+      <if test="carNumber != null">
+        car_number,
+      </if>
+      <if test="carState != null">
+        car_state,
+      </if>
+
+        create_time,
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="carId != null">
+        #{carId,jdbcType=INTEGER},
+      </if>
+      <if test="carNumber != null">
+        #{carNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="carState != null">
+        #{carState,jdbcType=VARCHAR},
+      </if>
+      now()
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wang.entity.CarItem">
+    update car_item
+    <set>
+      <if test="carId != null">
+        car_id = #{carId,jdbcType=INTEGER},
+      </if>
+      <if test="carNumber != null">
+        car_number = #{carNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="carState != null">
+        car_state = #{carState,jdbcType=VARCHAR},
+      </if>
+
+        update_time = now()
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wang.entity.CarItem">
+    update car_item
+    set car_id = #{carId,jdbcType=INTEGER},
+      car_number = #{carNumber,jdbcType=VARCHAR},
+      car_state = #{carState,jdbcType=VARCHAR},
+
+      update_time = now()
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByNumber" parameterType="string" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from car_item
+    where car_number = #{number,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectCarItemByCarId"  parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from car_item
+    where car_id = #{carId,jdbcType=INTEGER}
+  </select>
+</mapper>
